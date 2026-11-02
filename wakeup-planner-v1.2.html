@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#20253d">
+<meta name="description" content="WakeUp Planner：倒推起床時間，內建新莊站往南勢角班表與常用目的站；純 HTML，資料保存在本機。">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="WakeUp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%2320253d%22/%3E%3Ctext x=%2232%22 y=%2243%22 text-anchor=%22middle%22 font-size=%2239%22 fill=%22%23ffce91%22%3E%E2%9C%B3%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>WakeUp Planner｜單一 HTML 版</title>
+<style>
+:root{--ink:#262944;--muted:#757b8c;--soft:#979eaa;--bg:#f7f6f2;--white:#fff;--line:#e8e6e3;--violet:#67569d;--lav:#e9e2f5;--cream:#fff2de;--amber:#ffc884;--card:#fff;--danger:#bc4557;--success:#21755f;--shadow:0 12px 44px rgba(34,38,63,.055);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang TC","Noto Sans TC",system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+*{box-sizing:border-box}html{min-height:100%}body{margin:0;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button,select,input{touch-action:manipulation}input,select{min-width:0;accent-color:var(--violet)}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #b0a3e6;outline-offset:3px}a{color:var(--violet)}svg{display:block}h1,h2,h3,p{margin:0}h1{font-size:32px;letter-spacing:-.8px}h2{font-size:20px;letter-spacing:-.4px}h3{font-size:15px}small{font-size:12px}p{line-height:1.7}#app{min-height:100vh}.boot{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;min-height:90vh;font-size:20px;font-weight:750}.boot small{font-size:13px;color:var(--muted)}.boot-icon{display:grid;place-items:center;background:var(--ink);color:var(--amber);border-radius:24px;width:74px;height:74px;font-size:36px}.app-shell{max-width:1200px;margin:auto;padding:0 28px 90px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:30px 0 26px}.brand{display:flex;align-items:center;gap:13px}.mark{width:45px;height:45px;border-radius:15px;background:var(--ink);display:grid;place-items:center;color:var(--amber)}.mark svg{width:26px;height:26px}.brand-name{font-weight:800;font-size:20px;letter-spacing:-.5px}.brand-sub{font-size:11px;letter-spacing:.6px;color:var(--muted);margin-top:2px}.top-right{display:flex;gap:9px;align-items:center}.save-indicator{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}.dot{height:7px;width:7px;border-radius:50%;background:#56a18d}.today-pill{border:1px solid var(--line);background:#fff;border-radius:100px;padding:10px 14px;font-size:12px;font-weight:600}.page-nav{display:flex;gap:7px;margin-bottom:28px;border-bottom:1px solid var(--line);padding-bottom:15px}.nav-btn{border:0;background:transparent;color:var(--muted);font-weight:650;display:flex;align-items:center;gap:9px;padding:12px 17px;border-radius:13px;white-space:nowrap}.nav-btn:hover{background:#edebe8}.nav-btn.active{background:var(--ink);color:white}.nav-btn svg{width:18px;height:18px}.page-intro{display:flex;justify-content:space-between;gap:10px;align-items:flex-end;margin-bottom:22px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--violet);text-transform:uppercase;margin-bottom:8px}.lead{color:var(--muted);font-size:14px;margin-top:8px}.cards{display:grid;gap:20px}.layout{grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);align-items:start}.panel{background:var(--card);border:1px solid #ecebe8;border-radius:24px;padding:24px;box-shadow:var(--shadow)}.panel-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:9px;margin-bottom:18px}.panel-title svg{width:19px;height:19px;color:var(--violet)}.panel-sub{color:var(--muted);font-size:13px;line-height:1.65;margin-top:-8px;margin-bottom:18px}.panel + .panel{margin-top:18px}.hero{background:linear-gradient(118deg,#21263f 0%,#343457 75%,#49436d 100%);color:white;border-radius:28px;padding:30px 31px 27px;box-shadow:0 20px 35px rgba(37,43,67,.13);position:relative;overflow:hidden;margin-bottom:21px}.hero::before{content:'';position:absolute;width:290px;height:290px;border:1px solid rgba(255,255,255,.14);border-radius:50%;right:-130px;top:-110px}.hero::after{content:'';position:absolute;width:165px;height:165px;border:1px solid rgba(255,255,255,.09);border-radius:50%;right:-40px;top:25px}.hero>*{position:relative;z-index:1}.hero-overline{color:#d7d0ed;font-size:12px;font-weight:650;display:flex;align-items:center;gap:7px;letter-spacing:.5px}.hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.hero-badge{color:#ffdfa9;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 9px;border-radius:99px;font-size:11px;font-weight:700}.hero-time{font-size:clamp(70px,10vw,92px);font-weight:780;letter-spacing:-5px;line-height:1.15;margin-top:16px}.hero-date{font-size:14px;color:#dcd7ea;margin-bottom:23px}.hero-divider{height:1px;background:rgba(255,255,255,.18);margin-bottom:22px}.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.hero-stats label{display:block;color:#c9c9d8;font-size:11px;margin-bottom:6px}.hero-stats strong{display:block;font-size:19px;letter-spacing:-.5px}.hero-stats small{display:block;color:#c4bed7;margin-top:4px;font-size:11px}.alert{padding:12px 14px;border-radius:13px;background:#fff1e3;color:#7e582b;border:1px solid #f3debf;display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.65;margin-bottom:15px}.alert.danger{background:#fff0f1;color:#9b3747;border-color:#f3cdd2}.alert.success{background:#eef9f5;color:#1a765b;border-color:#c8ebdf}.alert svg{width:17px;height:17px;flex:none;margin-top:1px}.field{margin-bottom:16px}.field-label{display:block;color:#555970;font-weight:700;font-size:12px;margin-bottom:9px}.field-help{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.5}.text-field,.select-field{width:100%;border:1px solid #dfdfdf;background:#fbfaf9;color:var(--ink);border-radius:12px;min-height:46px;padding:10px 12px;font-size:15px;outline:none}.text-field:focus,.select-field:focus{border-color:#a195c4;background:#fff;box-shadow:0 0 0 3px #efeaf9}.text-field[type=date],.text-field[type=time]{min-height:49px}.row-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.small-input{max-width:115px}.segment{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.segment button{padding:12px 7px;border-radius:12px;background:#f7f5f6;border:1px solid #eceaf0;color:#68667c;font-size:12px;font-weight:750;min-height:48px}.segment button.active{color:#5a498d;background:#eee7fa;border-color:#cabfe7}.segment button svg{margin:0 auto 5px;width:20px;height:20px}.section-divider{height:1px;background:var(--line);margin:23px 0}.profile-strip{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.chip{background:#f4f1f8;border:1px solid #e5ddec;color:#655687;border-radius:100px;padding:9px 12px;font-size:12px;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chip.active{background:var(--violet);color:white;border-color:var(--violet)}.chip.secondary{background:white;color:var(--muted);border-style:dashed}.profile-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}.profile-head .field-label{margin:0}.task-row{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(125px,170px);gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid #f0efed}.task-row:last-child{border-bottom:0}.check{appearance:none;width:22px;height:22px;border:2px solid #d8d5dd;border-radius:7px;display:grid;place-items:center;background:white;margin:0;cursor:pointer}.check:checked{background:var(--violet);border-color:var(--violet)}.check:checked:after{content:'✓';color:#fff;font-size:14px;font-weight:900}.task-label{font-size:14px;font-weight:730;line-height:1.45}.task-row.off .task-label{color:#a0a1a9}.task-time{color:var(--violet);font-size:12px;font-weight:700;margin-top:3px}.task-row .select-field{font-size:12px;min-height:40px;padding:8px}.task-row.off .select-field{opacity:.55}.button-row{display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;background:var(--ink);color:white;border:1px solid var(--ink);border-radius:13px;padding:12px 17px;min-height:46px;font-size:13px;font-weight:800;text-align:center;text-decoration:none}.btn:hover{filter:brightness(1.06)}.btn svg{width:18px;height:18px}.btn.light{background:#f4f0fa;color:#62548f;border-color:#e6dcf3}.btn.outline{background:white;color:var(--ink);border-color:#dadce0}.btn.danger{background:#fff1f2;color:#af4353;border-color:#f4d4dc}.btn.ghost{background:transparent;color:var(--muted);border-color:var(--line)}.btn.full{width:100%}.btn.small{min-height:37px;padding:8px 11px;border-radius:10px;font-size:12px}.timeline{margin-top:3px}.timeline-item{display:grid;grid-template-columns:52px 22px minmax(0,1fr);gap:12px;min-height:62px}.timeline-clock{font-weight:700;color:var(--ink);font-size:12px;padding-top:3px;text-align:right}.timeline-track{display:flex;align-items:center;flex-direction:column}.timeline-bubble{flex:none;width:11px;height:11px;border:3px solid var(--lav);background:var(--violet);border-radius:50%;margin-top:6px}.timeline-line{height:100%;width:2px;background:#ece9ef;margin-top:5px}.timeline-item:last-child .timeline-line{display:none}.timeline-item.milestone .timeline-bubble,.timeline-item.target .timeline-bubble{border-color:#ffe2b6;background:#ca8b3f}.timeline-name{font-weight:700;font-size:13px}.timeline-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}.subhead{display:flex;align-items:center;justify-content:space-between;margin:22px 0 12px;gap:8px}.subhead h3{font-size:14px}.subhead span{color:var(--muted);font-size:12px}.stats-row{display:flex;justify-content:space-between;gap:10px;margin-bottom:11px;font-size:13px}.stats-row span{color:var(--muted)}.stats-row strong{font-weight:800}.stats-row.total{padding-top:11px;border-top:1px solid var(--line);font-size:15px}.info-list{display:grid;gap:14px}.info-item{display:flex;gap:11px;align-items:flex-start}.info-dot{width:30px;height:30px;border-radius:10px;background:#f1eafa;display:grid;place-items:center;color:#715e9d;flex:none}.info-item strong{font-size:13px}.info-item p{color:var(--muted);font-size:12px;margin-top:2px}.secondary-note{border-radius:14px;background:#fbf4ea;color:#705d44;padding:14px;font-size:12px;line-height:1.7}.list-stack{display:grid;gap:13px}.list-card{background:white;border:1px solid #ebe9e5;border-radius:18px;padding:18px;box-shadow:var(--shadow)}.list-card-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.list-card-head strong{font-size:15px}.list-card p{color:var(--muted);font-size:12px;margin:6px 0}.choice-list{display:grid;gap:8px;margin-top:17px}.choice-row{display:grid;grid-template-columns:minmax(0,1fr) 102px 34px;gap:8px;align-items:center}.choice-row .text-field{min-height:40px;font-size:13px}.icon-btn{width:34px;height:34px;display:grid;place-items:center;background:#f7f6f4;border:1px solid #eceae6;border-radius:9px;color:#838397;flex:none}.icon-btn svg{width:17px;height:17px}.icon-btn:hover{background:#efeaf7}.tool-actions{display:flex;align-items:center;gap:7px}.empty{background:#fff;border:1px dashed #dcd8e3;padding:40px 20px;border-radius:18px;text-align:center;color:var(--muted);font-size:13px}.empty svg{margin:0 auto 10px;color:#9d93b9}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.settings-grid .panel{margin:0}.steps{counter-reset:step;padding-left:0;display:grid;gap:14px;list-style:none}.steps li{display:grid;grid-template-columns:26px 1fr;gap:12px;color:var(--muted);font-size:13px;line-height:1.75}.steps li::before{counter-increment:step;content:counter(step);background:#ece6f7;color:#5d5188;border-radius:9px;display:grid;place-items:center;height:26px;width:26px;font-size:12px;font-weight:800}.steps strong{color:var(--ink)}.code-pill{background:#f2f0f6;border:1px solid #e4e0eb;border-radius:7px;padding:2px 6px;color:#51437c;overflow-wrap:anywhere}.footer-note{color:var(--muted);font-size:11px;margin:32px auto 0;text-align:center}.bottom-nav{display:none}#toast{position:fixed;z-index:200;left:50%;bottom:28px;transform:translateX(-50%) translateY(40px);opacity:0;pointer-events:none;background:#292f43;color:#fff;border-radius:13px;padding:13px 17px;box-shadow:0 13px 40px #1a1a2444;max-width:min(460px,90vw);text-align:center;font-size:12px;transition:opacity .18s,transform .18s}#toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}.hint{font-size:12px;color:var(--muted);line-height:1.6}.inline-detail{display:flex;align-items:center;gap:7px}.mini-tag{color:var(--success);background:#e9f7f2;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:800}.summary-header{margin-bottom:15px}.summary-header p{color:var(--muted);font-size:12px}.action-bar{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}.action-bar .btn{padding:12px 8px;font-size:12px}.muted{color:var(--muted)}.only-mobile{display:none}.save-banner{margin-bottom:18px}.caption-link{font-size:12px;color:var(--violet);font-weight:700;text-decoration:underline;text-underline-offset:3px}.route-parameters{padding:13px;background:#f9f8fc;border-radius:14px;margin-top:10px}.hide{display:none!important}
+@media (max-width:850px){.app-shell{padding:0 18px 110px}.layout{grid-template-columns:minmax(0,1fr)}.settings-grid{grid-template-columns:1fr}.topbar{padding:19px 0}.page-nav{display:none}.bottom-nav{position:fixed;z-index:120;bottom:0;left:0;right:0;padding:8px 6px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-top:1px solid var(--line);box-shadow:0 -10px 30px #23233909}.bottom-nav .nav-btn{display:flex;flex-direction:column;gap:3px;padding:8px 2px;min-width:0;font-size:10px;background:transparent;color:#9795a1;border:0}.bottom-nav .nav-btn.active{color:var(--violet);background:#f2ecf9}.bottom-nav .nav-btn svg{height:21px;width:21px}.page-intro{margin:13px 0 19px}.page-intro h1{font-size:27px}.lead{font-size:12px}.top-right .today-pill{display:none}.hero{padding:25px 23px 23px}.hero-time{font-size:clamp(67px,18vw,86px);letter-spacing:-4px}.panel{padding:20px;border-radius:20px}.only-mobile{display:initial}.settings-grid{gap:16px}}
+@media(max-width:420px){.app-shell{padding-left:14px;padding-right:14px}.brand-name{font-size:18px}.brand-sub{font-size:10px}.save-indicator{font-size:10px}.task-row{grid-template-columns:24px minmax(0,1fr) 117px;gap:8px}.task-label{font-size:12px}.task-row .select-field{font-size:11px}.hero-stats strong{font-size:16px}.hero-stats label{font-size:10px}.choice-row{grid-template-columns:minmax(0,1fr) 81px 32px}.row-fields{gap:9px}.btn{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+/* V1.1: 設定先行、確認後才顯示結果；手機優先 */
+.plan-flow{max-width:770px;margin:0 auto}
+.plan-flow>.panel{margin-bottom:0}
+.plan-flow .panel{padding:clamp(19px,3vw,28px)}
+.plan-flow .panel-title{font-size:18px;margin-bottom:23px}
+.step-label{font-size:11px;letter-spacing:1.4px;font-weight:850;color:#7567a3;display:flex;align-items:center;gap:10px;margin:1px 0 16px}
+.step-label span{font-size:15px;letter-spacing:0;color:var(--ink)}
+.plan-flow .section-divider{margin:21px 0 23px}
+.plan-flow .task-row{padding:12px 0}
+.calculate-area{border-top:1px solid var(--line);padding-top:20px;margin-top:16px}
+.calculate-area p{font-size:12px;color:var(--muted);text-align:center;margin:0 0 12px}
+.calculate-button{min-height:56px;background:#282b4b;border-color:#282b4b;font-size:16px;border-radius:15px;box-shadow:0 5px 16px rgba(31,34,64,.12)}
+.result-stack{padding-top:16px;scroll-margin-top:16px}
+.result-card{border-radius:22px;padding:23px 25px;background:#262944;color:#fff;scroll-margin-top:14px}
+.result-eyebrow{display:flex;align-items:center;gap:7px;font-weight:750;color:#d5e8d9;font-size:12px}
+.result-main{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 0 18px}
+.result-label{font-size:13px;color:#d9d9ed;font-weight:650}
+.result-time{font-size:clamp(43px,10vw,59px);font-weight:800;letter-spacing:-2.2px;line-height:1.2;margin:1px 0 5px}
+.result-date{font-size:12px;line-height:1.6;color:#e2dfef}
+.result-mark{display:grid;place-items:center;flex:none;width:55px;height:55px;border-radius:17px;background:#403f61;color:#ffd79a}
+.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;border-top:1px solid #ffffff35;padding-top:16px}
+.result-grid>div{display:flex;flex-direction:column;gap:4px}
+.result-grid span{font-size:11px;color:#d4cee2}
+.result-grid strong{font-size:17px;color:#fff}
+.result-grid small{font-size:11px;color:#c8c4d6}
+.result-card .action-bar{margin-top:19px}
+.result-card .action-bar .btn{background:#fff;color:#262944;border-color:#fff;font-size:13px}
+.result-card .action-bar .btn.outline{background:transparent;color:#fff;border-color:#777893}
+.result-card .field-help{color:#d9d6e5;margin-top:12px}
+.result-details{background:#fff;border:1px solid #e8e6e3;border-radius:18px;margin-top:14px;overflow:hidden}
+.result-details summary{display:flex;align-items:center;gap:10px;list-style:none;cursor:pointer;padding:19px 22px;font-size:14px;font-weight:750}
+.result-details summary::-webkit-details-marker{display:none}
+.result-details summary svg{color:var(--violet)}
+.result-details summary span{margin-left:auto;color:var(--muted);font-size:12px}
+.result-details[open] summary{border-bottom:1px solid var(--line)}
+.result-details-body{padding:23px}
+@media(min-width:851px){.plan-flow{max-width:730px}}
+@media(max-width:420px){.step-label span{font-size:14px}.result-card{padding:20px 19px}.result-grid strong{font-size:15px}.result-grid span{font-size:10px}.result-mark{width:46px;height:46px;border-radius:12px}.result-card .action-bar{gap:7px}.result-card .action-bar .btn{font-size:11px;padding:10px 5px}.result-time{font-size:50px}.result-details-body{padding:18px}}
+
+
+/* 新莊站智能選車：不擴張結果卡片，只在設定模式顯示欄位 */
+.segment.metro-modes{grid-template-columns:repeat(4,minmax(0,1fr));}
+.metro-setup{background:#f8f6fd;border:1px solid #e5dff3;border-radius:16px;padding:16px;margin:10px 0 16px;}
+.metro-callout{background:#f0ebf9;border:1px solid #ded4f0;border-radius:14px;padding:13px 15px;margin-top:12px;color:#514778;font-size:13px;}
+.metro-callout p{font-size:12px;margin-top:4px;line-height:1.65;color:#6e6685}
+.metro-source{color:#77758b;font-size:11px;line-height:1.6;margin-top:7px}
+.metro-result{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(255,255,255,.1);padding:13px;border-radius:13px;margin:14px 0;}
+.metro-result span,.metro-result small{display:block;font-size:11px;color:#d5d2e3;line-height:1.6}
+.metro-result strong{font-size:24px;color:white;display:block;margin:2px 0}
+.metro-reason{font-size:12px;color:#e3e0ed;line-height:1.75;margin-bottom:16px}
+@media(max-width:650px){.segment.metro-modes{grid-template-columns:repeat(2,minmax(0,1fr));}.metro-setup{padding:13px}.metro-result strong{font-size:21px}}
+</style>
+</head>
+<body>
+<div id="app"><div class="boot"><div class="boot-icon">✳</div><div>WakeUp Planner</div><small>正在啟動，若停留此畫面，請使用支援 JavaScript 的瀏覽器開啟。</small></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<input id="import-file" type="file" accept=".json,application/json" hidden>
+<noscript><p style="padding:16px;color:#8e2b2b;">這個時間計算工具需要 JavaScript。如果你正在使用 iPhone「檔案」預覽，請改用 Safari 開啟部署後的網站。</p></noscript>
+<script>
+
+if (typeof window.structuredClone !== 'function') { window.structuredClone = (x) => JSON.parse(JSON.stringify(x)); }
+/* WakeUp Planner — pure, dependency-free scheduling logic. */
+const SCHEMA_VERSION = 1;
+const MINUTE = 60_000;
+
+function uid(prefix = 'id') {
+  return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 9)}`;
+}
+
+function act(id, name, choices) {
+  return { id, name, options: choices.map(([suffix, label, minutes]) => ({ id: `${id}_${suffix}`, name: label, minutes })) };
+}
+
+function defaultState(now = new Date()) {
+  const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  const tomorrowStr = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
+  const activities = [
+    act('wash', '刷牙洗臉', [['normal', '一般', 10], ['fast', '快速', 5]]),
+    act('makeup', '化妝', [['none', '不化妝', 0], ['quick', '快速', 10], ['daily', '日常', 25], ['full', '完整妝容', 45]]),
+    act('hair', '整理頭髮', [['none', '不整理', 0], ['quick', '簡單整理', 5], ['normal', '日常造型', 15], ['full', '完整造型', 30]]),
+    act('clothes', '換衣服／整理包包', [['quick', '快速', 5], ['normal', '一般', 10]]),
+    act('breakfast', '吃早餐', [['none', '不吃', 0], ['drink', '喝飲料', 5], ['toast', '簡單早餐', 15], ['takeaway', '外帶早餐', 20], ['cooked', '現做早餐', 30]])
+  ];
+  const selections = {
+    wash: { enabled: true, optionId: 'wash_normal' },
+    makeup: { enabled: true, optionId: 'makeup_daily' },
+    hair: { enabled: true, optionId: 'hair_normal' },
+    clothes: { enabled: true, optionId: 'clothes_normal' },
+    breakfast: { enabled: true, optionId: 'breakfast_toast' }
+  };
+  const quick = structuredClone(selections);
+  quick.makeup.optionId = 'makeup_quick';
+  quick.hair.optionId = 'hair_quick';
+  quick.breakfast.optionId = 'breakfast_none';
+  const special = structuredClone(selections);
+  special.makeup.optionId = 'makeup_full';
+  special.hair.optionId = 'hair_full';
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    activities,
+    routes: [],
+    metroStops: [],
+    presets: [
+      { id: 'preset_daily', name: '日常準備（範例）', selections: structuredClone(selections), bufferMinutes: 10, mode: 'arrive', leadMinutes: 5, routeId: '', travelMinutes: 20 },
+      { id: 'preset_quick', name: '快速出門（範例）', selections: quick, bufferMinutes: 5, mode: 'depart', leadMinutes: 5, routeId: '', travelMinutes: 20 },
+      { id: 'preset_special', name: '重要場合（範例）', selections: special, bufferMinutes: 15, mode: 'arrive', leadMinutes: 5, routeId: '', travelMinutes: 20 }
+    ],
+    plan: { targetDate: tomorrowStr, targetTime: '09:00', mode: 'arrive', selectedRouteId: '', travelMinutes: 20, leadMinutes: 5, bufferMinutes: 10, metroStopId: '', metroRideMinutes: 20, metroWalkMinutes: 7, metroPlatformLead: 3, metroService: 'auto', selections, presetId: 'preset_daily' },
+    settings: { shortcutName: 'WakeUp 設定鬧鐘' },
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function num(value, min, max, fallback = min) {
+  if (value === '' || value === null || value === undefined) return fallback;
+  const n = Number(value);
+  return Number.isFinite(n) ? Math.min(max, Math.max(min, Math.round(n))) : fallback;
+}
+
+function parseLocalDateTime(day, time) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(day ?? '');
+  const t = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(time ?? '');
+  if (!m || !t) return null;
+  const [y, mo, d, h, mi] = [Number(m[1]), Number(m[2]), Number(m[3]), Number(t[1]), Number(t[2])];
+  const result = new Date(y, mo - 1, d, h, mi);
+  if (result.getFullYear() !== y || result.getMonth() !== mo - 1 || result.getDate() !== d || result.getHours() !== h || result.getMinutes() !== mi) return null;
+  return result;
+}
+
+function pad(n) { return String(n).padStart(2, '0'); }
+function dateKey(date) { return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`; }
+function timeKey(date) { return `${pad(date.getHours())}:${pad(date.getMinutes())}`; }
+function fullStamp(date) {
+  return `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())}（${'日一二三四五六'[date.getDay()]}）${date.getHours() < 12 ? '上午' : '下午'} ${pad(date.getHours() % 12 || 12)}:${pad(date.getMinutes())}`;
+}
+
+function effectiveTravel(state) {
+  const route = state.routes.find(r => r.id === state.plan.selectedRouteId);
+  return route ? num(route.minutes, 0, 600, 20) : num(state.plan.travelMinutes, 0, 600, 20);
+}
+
+
+/* 官方臺北捷運「新莊站往南勢角」表格，取自 https://web.metro.taipei/img/ALL/timetables/122b.PDF 。
+   固定列車離站時刻，非即時動態。平日 / 週六 / 週日及國定假日；週六、週日表格所列時刻相同。
+   00:08 是前一營運日的末班車，需放在次日凌晨。2026-11-02 查閱。 */
+const METRO_SOURCE = 'https://web.metro.taipei/img/ALL/timetables/122b.PDF';
+const METRO_TABLE = {
+  weekday: `06:03 06:08 06:16 06:25 06:33 06:41 06:49 06:55
+07:01 07:08 07:14 07:20 07:26 07:32 07:37 07:43 07:48 07:53 07:57
+08:03 08:07 08:13 08:18 08:23 08:29 08:35 08:41 08:47 08:53
+09:00 09:08 09:17 09:25 09:34 09:43 09:52
+10:01 10:10 10:20 10:30 10:39 10:49 10:59
+11:08 11:18 11:28 11:37 11:47 11:57
+12:06 12:16 12:26 12:35 12:45 12:55
+13:04 13:14 13:24 13:33 13:43 13:53
+14:02 14:12 14:22 14:31 14:41 14:51
+15:00 15:10 15:20 15:29 15:39 15:49 15:55
+16:02 16:08 16:14 16:21 16:27 16:34 16:40 16:46 16:53 16:59
+17:05 17:12 17:18 17:24 17:31 17:37 17:43 17:50 17:56
+18:02 18:09 18:15 18:21 18:28 18:34 18:40 18:47 18:53 18:59
+19:07 19:16 19:26 19:34 19:43 19:52
+20:00 20:09 20:18 20:26 20:35 20:44 20:52
+21:01 21:10 21:18 21:27 21:36 21:44 21:54
+22:03 22:13 22:23 22:31 22:36 22:45 22:55
+23:07 23:19 23:31 23:43 23:55 00:08`,
+  holiday: `06:03 06:08 06:17 06:25 06:33 06:42 06:52
+07:02 07:11 07:21 07:30 07:40 07:49 07:59
+08:09 08:18 08:28 08:37 08:46 08:55
+09:02 09:11 09:21 09:30 09:40 09:49 09:59
+10:09 10:18 10:28 10:37 10:47 10:56
+11:06 11:16 11:25 11:35 11:44 11:54
+12:03 12:13 12:22 12:32 12:42 12:51
+13:01 13:10 13:20 13:29 13:39 13:49 13:58
+14:08 14:17 14:27 14:36 14:46 14:56
+15:05 15:15 15:24 15:34 15:43 15:53
+16:03 16:12 16:22 16:31 16:41 16:50
+17:00 17:09 17:19 17:29 17:38 17:48 17:57
+18:07 18:16 18:26 18:36 18:45 18:55
+19:04 19:14 19:23 19:33 19:43 19:52
+20:02 20:11 20:21 20:30 20:40 20:50 20:59
+21:09 21:18 21:28 21:37 21:47 21:56
+22:06 22:16 22:25 22:35 22:44 22:55
+23:07 23:19 23:31 23:43 23:55 00:08`
+};
+const METRO_DEPARTURES = Object.fromEntries(Object.entries(METRO_TABLE).map(([k,v])=>[k,v.trim().split(/\s+/)]));
+function serviceForDate(day, pref) {
+  if(pref === 'weekday' || pref === 'holiday') return pref;
+  const w=day.getDay();return (w===0||w===6)?'holiday':'weekday';
+}
+function recentTrain(target, lastDepartureTime, pref) {
+  // 組出目標日及前幾天所有班次，解決跨日和 00:08 末班的問題。
+  let best=null;
+  for(let offset=-3;offset<=0;offset++) {
+    const serviceDate=new Date(target.getFullYear(),target.getMonth(),target.getDate()+offset);
+    const service=serviceForDate(serviceDate,pref);
+    for(const hm of METRO_DEPARTURES[service]) {
+      const [h,m]=hm.split(':').map(Number);
+      const departure=new Date(serviceDate.getFullYear(),serviceDate.getMonth(),serviceDate.getDate()+(h===0?1:0),h,m);
+      if(departure.getTime()<=lastDepartureTime.getTime() && (!best || departure>best.date)) best={date:departure,serviceDate,service};
+    }
+  }
+  return best;
+}
+function metroRideTime(state) {
+  const stop=state.metroStops.find(x=>x.id===state.plan.metroStopId);
+  return stop ? num(stop.minutes,0,600,20):num(state.plan.metroRideMinutes,0,600,20);
+}
+
+function calculate(state) {
+  const p = state.plan;
+  const target = parseLocalDateTime(p.targetDate, p.targetTime);
+  if (!target) return { error: '日期或時間不正確，請重新選擇。' };
+  const mode = ['depart', 'arrive', 'board', 'metro'].includes(p.mode) ? p.mode : 'arrive';
+  const bufferMinutes = num(p.bufferMinutes, 0, 180, 0);
+  const leadMinutes = mode === 'board' ? num(p.leadMinutes, 0, 120, 0) : 0;
+  const travelMinutes = mode === 'depart' ? 0 : effectiveTravel(state);
+  const tasks = [];
+  for (const activity of state.activities) {
+    const selection = p.selections?.[activity.id];
+    if (!selection?.enabled) continue;
+    const option = activity.options.find(o => o.id === selection.optionId) ?? activity.options[0];
+    if (!option) continue;
+    tasks.push({ id: activity.id, name: activity.name, option: option.name, minutes: num(option.minutes, 0, 240) });
+  }
+  const prepMinutes = tasks.reduce((sum, task) => sum + task.minutes, 0);
+  if (mode === 'metro') {
+    const rideMinutes=metroRideTime(state);
+    const walkMinutes=num(p.metroWalkMinutes,0,240,7);
+    const platformLead=num(p.metroPlatformLead,0,120,3);
+    const cutoff=new Date(target.getTime()-rideMinutes*MINUTE);
+    const train=recentTrain(target,cutoff,p.metroService);
+    if(!train) return {error:'在這個時間之前找不到新莊站往南勢角方向的可搭班次。請檢查日期、時間或車程。'};
+    const arrive=new Date(train.date.getTime()+rideMinutes*MINUTE);
+    const slackMinutes=Math.round((target-arrive)/MINUTE);
+    if(slackMinutes>120)return {error:'這個時段附近沒有適合的班次，最近一班會提早超過 2 小時抵達。請調整目標時間或另選交通方式。'};
+    const leave=new Date(train.date.getTime()-(walkMinutes+platformLead)*MINUTE);
+    const wake=new Date(leave.getTime()-(prepMinutes+bufferMinutes)*MINUTE);
+    const timeline=[{name:'起床',start:wake,end:null,kind:'start'}];
+    let cursor=wake.getTime();
+    for(const task of tasks){const start=new Date(cursor);cursor+=task.minutes*MINUTE;timeline.push({name:task.name,description:task.option,start,end:new Date(cursor),minutes:task.minutes,kind:'task'});}
+    if(bufferMinutes){const start=new Date(cursor);cursor+=bufferMinutes*MINUTE;timeline.push({name:'彈性緩衝',start,end:new Date(cursor),minutes:bufferMinutes,kind:'buffer'});}
+    timeline.push({name:'從家裡出門',start:leave,end:null,kind:'milestone'});
+    timeline.push({name:'抵達新莊站',start:new Date(leave.getTime()+walkMinutes*MINUTE),end:null,kind:'milestone'});
+    if(platformLead)timeline.push({name:'進站／候車緩衝',start:new Date(leave.getTime()+walkMinutes*MINUTE),end:train.date,minutes:platformLead,kind:'buffer'});
+    timeline.push({name:'新莊站往南勢角方向：列車離站',start:train.date,end:null,kind:'target'});
+    timeline.push({name:'預計抵達目的站',start:arrive,end:null,kind:'milestone'});
+    if(slackMinutes)timeline.push({name:'目標抵達時間（可提前 '+slackMinutes+' 分）',start:target,end:null,kind:'target'});
+    const totalMinutes=Math.round((target-wake)/MINUTE);
+    return {target,wake,leave,reach:arrive,timeline,tasks,mode,prepMinutes,bufferMinutes,leadMinutes:platformLead,travelMinutes:walkMinutes+rideMinutes,totalMinutes,rideMinutes,walkMinutes,platformLead,cutoff,trainDate:train.date,trainService:train.service,serviceDate:train.serviceDate,slackMinutes,arrival:arrive};
+  }
+  const totalMinutes = prepMinutes + bufferMinutes + leadMinutes + travelMinutes;
+  const wake = new Date(target.getTime() - totalMinutes * MINUTE);
+  const leave = new Date(target.getTime() - (leadMinutes + travelMinutes) * MINUTE);
+  const reach = new Date(target.getTime() - leadMinutes * MINUTE);
+  let cursor = wake.getTime();
+  const timeline = [{ name: '起床', start: new Date(cursor), end: null, minutes: 0, kind: 'start' }];
+  for (const task of tasks) {
+    const start = new Date(cursor);
+    cursor += task.minutes * MINUTE;
+    timeline.push({ name: task.name, description: task.option, start, end: new Date(cursor), minutes: task.minutes, kind: 'task' });
+  }
+  if (bufferMinutes > 0) {
+    const start = new Date(cursor);
+    cursor += bufferMinutes * MINUTE;
+    timeline.push({ name: '彈性緩衝', start, end: new Date(cursor), minutes: bufferMinutes, kind: 'buffer' });
+  }
+  timeline.push({ name: mode === 'depart' ? '出門（目標）' : '離開家', start: leave, end: null, minutes: 0, kind: 'milestone' });
+  if (mode !== 'depart') {
+    timeline.push({ name: mode === 'board' ? '抵達搭乘地點' : '抵達目的地', start: reach, end: null, minutes: travelMinutes, kind: 'milestone' });
+  }
+  if (mode === 'board') timeline.push({ name: '班次／搭乘時間', start: target, end: null, minutes: leadMinutes, kind: 'target' });
+  return { target, wake, leave, reach, timeline, tasks, mode, prepMinutes, bufferMinutes, leadMinutes, travelMinutes, totalMinutes };
+}
+
+function sanitizeState(source, now = new Date()) {
+  // Validate imports instead of trusting user-provided JSON shape.
+  if (!source || typeof source !== 'object' || source.schemaVersion !== SCHEMA_VERSION) throw new Error('不支援的備份格式或版本。');
+  if (!Array.isArray(source.activities) || source.activities.length > 100 || !Array.isArray(source.presets) || source.presets.length > 100 || !Array.isArray(source.routes) || source.routes.length > 100) throw new Error('備份資料結構不正確。');
+  const base = defaultState(now);
+  const trim = (s, limit=80) => typeof s === 'string' ? s.trim().slice(0,limit) : '';
+  const activities = source.activities.map((a,i) => {
+    if (!a || !Array.isArray(a.options) || a.options.length < 1 || a.options.length > 30) throw new Error('活動選項資料損壞。');
+    const id = trim(a.id,60) || `activity${i}`;
+    return { id, name: trim(a.name) || '未命名活動', options: a.options.map((o,j) => ({ id: trim(o?.id,60) || `${id}_${j}`, name: trim(o?.name) || '一般', minutes: num(o?.minutes,0,240,0) })) };
+  });
+  const ids = activities.map(a=>a.id);
+  if (new Set(ids).size !== ids.length || activities.some(a=>new Set(a.options.map(o=>o.id)).size !== a.options.length)) throw new Error('活動 ID 有重複。');
+  const routes = source.routes.map((r,i) => ({ id: trim(r?.id,60) || `route${i}`, name: trim(r?.name) || '未命名路線', from: trim(r?.from), to: trim(r?.to), minutes: num(r?.minutes,0,600,0) }));
+  if (new Set(routes.map(r=>r.id)).size !== routes.length) throw new Error('路線 ID 有重複。');
+  function selectionsOf(value) {
+    const result = {};
+    for (const a of activities) {
+      const sel = value && typeof value === 'object' ? value[a.id] : null;
+      result[a.id] = { enabled: !!sel?.enabled, optionId: a.options.some(o=>o.id===sel?.optionId) ? sel.optionId : a.options[0].id };
+    }
+    return result;
+  }
+  const metroStops=(Array.isArray(source.metroStops)?source.metroStops:[]).slice(0,100).map((x,i)=>({id:trim(x?.id,60)||`metro${i}`,name:trim(x?.name)||'未命名捷運站',minutes:num(x?.minutes,0,600,20)}));
+  if(new Set(metroStops.map(x=>x.id)).size!==metroStops.length) throw new Error('捷運常用站的 ID 有重複。');
+  const presets = source.presets.map((p,i) => ({ id: trim(p?.id,60) || `preset${i}`, name: trim(p?.name) || '未命名情境', selections: selectionsOf(p?.selections), bufferMinutes: num(p?.bufferMinutes,0,180,10), mode: ['depart','arrive','board','metro'].includes(p?.mode) ? p.mode : 'arrive', leadMinutes: num(p?.leadMinutes,0,120,5), routeId: routes.some(r=>r.id===p?.routeId) ? p.routeId : '', travelMinutes: num(p?.travelMinutes,0,600,20), metroStopId: metroStops.some(x=>x.id===p?.metroStopId)?p.metroStopId:'', metroRideMinutes:num(p?.metroRideMinutes,0,600,20), metroWalkMinutes:num(p?.metroWalkMinutes,0,240,7),metroPlatformLead:num(p?.metroPlatformLead,0,120,3),metroService:['auto','weekday','holiday'].includes(p?.metroService)?p.metroService:'auto' }));
+  if (new Set(presets.map(p=>p.id)).size !== presets.length) throw new Error('情境 ID 有重複。');
+  const srcPlan = source.plan && typeof source.plan === 'object' ? source.plan : {};
+  const date = parseLocalDateTime(srcPlan.targetDate, srcPlan.targetTime);
+  const plan = { ...base.plan, targetDate: date ? trim(srcPlan.targetDate,10) : base.plan.targetDate, targetTime: date ? trim(srcPlan.targetTime,5) : base.plan.targetTime, mode: ['depart','arrive','board','metro'].includes(srcPlan.mode) ? srcPlan.mode : 'arrive', selectedRouteId: routes.some(r=>r.id===srcPlan.selectedRouteId) ? srcPlan.selectedRouteId : '', travelMinutes: num(srcPlan.travelMinutes,0,600,20), leadMinutes: num(srcPlan.leadMinutes,0,120,5), bufferMinutes: num(srcPlan.bufferMinutes,0,180,10), selections: selectionsOf(srcPlan.selections), presetId: presets.some(p=>p.id===srcPlan.presetId) ? srcPlan.presetId : '' };
+  Object.assign(plan,{metroStopId:metroStops.some(x=>x.id===srcPlan.metroStopId)?srcPlan.metroStopId:'',metroRideMinutes:num(srcPlan.metroRideMinutes,0,600,20),metroWalkMinutes:num(srcPlan.metroWalkMinutes,0,240,7),metroPlatformLead:num(srcPlan.metroPlatformLead,0,120,3),metroService:['auto','weekday','holiday'].includes(srcPlan.metroService)?srcPlan.metroService:'auto'});
+  const result = { schemaVersion: SCHEMA_VERSION, activities, routes, metroStops, presets, plan, settings: { shortcutName: trim(source.settings?.shortcutName) || 'WakeUp 設定鬧鐘' }, updatedAt: new Date().toISOString() };
+  return result;
+}
+
+function updateStaleDate(state, now = new Date()) {
+  const currentDay = dateKey(now);
+  if (!state.plan.targetDate || state.plan.targetDate < currentDay) {
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
+    state.plan.targetDate = dateKey(tomorrow);
+  }
+}
+
+const KEY = 'plannerState';
+let mode = 'localstorage';
+async function initializeStorage() {
+  try {
+    const raw = window.localStorage.getItem(KEY);
+    mode = 'localstorage';
+    return {data: raw ? JSON.parse(raw) : null, mode};
+  } catch (e) {
+    mode = 'memory';
+    return {data: null, mode};
+  }
+}
+async function saveState(data) {
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(data));
+    mode = 'localstorage';
+    return mode;
+  } catch(e) {
+    mode = 'memory';
+    throw new Error('目前環境無法保存資料。請先使用匯出 JSON 備份，或在 Safari 的 HTTPS 網址中使用。');
+  }
+}
+function storageMode() { return mode; }
+
+window.addEventListener('error', function(e) {
+  const root = document.getElementById('app');
+  if (root && root.querySelector('.boot')) {
+    root.innerHTML = '<div class="boot"><div class="boot-icon">!</div><div>啟動失敗</div><small>程式執行發生錯誤，請重新開啟。若在 iPhone「檔案」預覽，請改用支援 JavaScript 的瀏覽器環境。</small></div>';
+  }
+});
+
+
+let state;
+let page = 'plan';
+let resultVisible = false;
+let toastTimeout;
+const app = document.querySelector('#app');
+const iconPaths = {
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>',
+  list: '<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/>',
+  layers: '<path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/>',
+  map: '<path d="M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3V6Zm6-3v15m6-12v15"/>',
+  gear: '<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m19.4 15 .1.1 1.6 1.3-2 3.4-1.9-.7a9 9 0 0 1-1.8 1l-.3 2h-4l-.3-2a9 9 0 0 1-1.8-1l-1.9.7-2-3.4 1.6-1.3a9 9 0 0 1 0-2.1L5 11.7l2-3.4 1.9.7a9 9 0 0 1 1.8-1l.3-2h4l.3 2a9 9 0 0 1 1.8 1l1.9-.7 2 3.4-1.6 1.3a9 9 0 0 1 0 2Z" transform="translate(-.7 -2) scale(1.04)"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  trash: '<path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m5 4v7m4-7v7"/>',
+  chevronup: '<path d="m6 15 6-6 6 6"/>',
+  chevrondown: '<path d="m6 9 6 6 6-6"/>',
+  save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2ZM7 3v7h10V3M7 21v-8h10v8"/>',
+  download: '<path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/>',
+  upload: '<path d="M12 16V4m-4 4 4-4 4 4M5 17v4h14v-4"/>',
+  alert: '<path d="m12 3 10 18H2L12 3Zm0 7v4m0 3h.01"/>',
+  check: '<path d="m4 12 5 5L20 6"/>',
+  arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 11v5m0-8h.01"/>',
+  spark: '<path d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3ZM19 17v4m-2-2h4"/>',
+  smartphone: '<rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/>',
+  alarm: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M4 3 1 6M20 3l3 3"/>',
+  coffee: '<path d="M4 8h14v7a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V8Zm14 1h2a3 3 0 0 1 0 6h-2M9 2v3m5-3v3"/>'
+};
+function icon(name, size = 20) { return `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${iconPaths[name] || iconPaths.clock}</svg>`; }
+function esc(v='') { return String(v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(message) { const el=document.getElementById('toast'); el.textContent=message; el.classList.add('visible'); clearTimeout(toastTimeout); toastTimeout=setTimeout(()=>el.classList.remove('visible'),4200); }
+function notifySaveError(err) { toast('⚠ ' + (err?.message || '資料保存失敗，請立即備份')); }
+async function persist() { state.updatedAt=new Date().toISOString(); try { await saveState(state); } catch(e) { notifySaveError(e); } }
+function refresh() { app.innerHTML = shell(); }
+async function commit() { resultVisible=false; refresh(); await persist(); }
+function pick(value, current) { return value===current ? 'selected' : ''; }
+function navButton(where,label,sign) { return `<button type="button" class="nav-btn ${page===where?'active':''}" data-action="nav" data-page="${where}" ${page===where?'aria-current="page"':''}>${icon(sign)}<span>${label}</span></button>`; }
+function title(title, subtitle, eyebrow) { return `<div class="page-intro"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p class="lead">${subtitle}</p></div></div>`; }
+function panel(name, ico, body, sub='') { return `<section class="panel"><div class="panel-title">${icon(ico)}${name}</div>${sub?`<p class="panel-sub">${sub}</p>`:''}${body}</section>`; }
+function warning(text, danger=false) { return `<div class="alert ${danger?'danger':''}">${icon('alert',17)}<span>${text}</span></div>`; }
+function formatClock(d) { return timeKey(d); }
+function shortDate(d) { return `${d.getMonth()+1}/${d.getDate()}（${'日一二三四五六'[d.getDay()]}）`; }
+function dayContext(d, target) { return dateKey(d)===dateKey(target) ? '當天' : (d<target ? '前一天或更早' : '後一天'); }
+function canShortcut(result) { return result && !result.error && result.wake.getTime()>Date.now() && result.wake.getTime()-Date.now()<24*3600*1000; }
+function shell() {
+  const labels=[['plan','計算','sun'],['habits','活動','list'],['presets','情境','layers'],['routes','交通','map'],['settings','設定','gear']];
+  const content=page==='plan'?renderPlan():page==='habits'?renderHabits():page==='presets'?renderPresets():page==='routes'?renderRoutes():renderSettings();
+  return `<div class="app-shell"><header class="topbar"><div class="brand"><div class="mark">${icon('clock',28)}</div><div><div class="brand-name">WakeUp <span style="font-weight:450">Planner</span></div><div class="brand-sub">YOUR MORNING, MADE EASIER.</div></div></div><div class="top-right"><span class="save-indicator"><span class="dot" style="background:${storageMode()==='memory'?'#d05d62':'#56a18d'}"></span>${storageMode()==='localstorage'?'本機自動儲存':'未能儲存'}</span><span class="today-pill">${shortDate(new Date())}</span></div></header><nav aria-label="主選單" class="page-nav">${labels.map(x=>navButton(...x)).join('')}</nav><main>${storageMode()==='memory'?warning('瀏覽器目前無法儲存變更。請改用正常 Safari 模式，或先匯出備份。',true):''}${content}</main><p class="footer-note">WakeUp Planner v1.2 · 本機優先 · 捷運為固定時刻表、非即時資訊 · 範例時間請依習慣修改</p></div><nav class="bottom-nav" aria-label="手機主選單">${labels.map(x=>navButton(...x)).join('')}</nav>`;
+}
+function renderPlan() {
+  const p=state.plan;
+  const r=calculate(state);
+  const valid=!r.error;
+  const route=state.routes.find(x=>x.id===p.selectedRouteId);
+  const preset=state.presets.find(x=>x.id===p.presetId);
+  const now=Date.now();
+  const modeOptions=[['depart','出門時間','arrow'],['arrive','抵達時間','map'],['board','手動班次','clock'],['metro','捷運自動選班','map']];
+  const activityRows=state.activities.map(a=>{
+    const sel=p.selections[a.id]??{enabled:false,optionId:a.options[0]?.id};
+    const opt=a.options.find(o=>o.id===sel.optionId)??a.options[0];
+    return `<div class="task-row ${sel.enabled?'':'off'}"><input class="check" aria-label="啟用 ${esc(a.name)}" type="checkbox" data-field="enabled" data-id="${esc(a.id)}" ${sel.enabled?'checked':''}><div><div class="task-label">${esc(a.name)}</div><div class="task-time">${sel.enabled?(opt?.minutes??0)+' 分鐘':'不計入'}</div></div><select class="select-field" aria-label="${esc(a.name)}的模式" data-field="option" data-id="${esc(a.id)}" ${sel.enabled?'':'disabled'}>${a.options.map(o=>`<option value="${esc(o.id)}" ${pick(o.id,sel.optionId)}>${esc(o.name)} · ${o.minutes} 分</option>`).join('')}</select></div>`;
+  }).join('');
+  const form=panel('設定這次的出門計畫','clock',`
+    <div class="step-label">STEP 01 <span>目標時間</span></div>
+    <div class="field"><label class="field-label">我要設定的是</label><div class="segment metro-modes">${modeOptions.map(([key,label,sign])=>`<button type="button" class="${p.mode===key?'active':''}" data-action="mode" data-value="${key}">${icon(sign)}${label}</button>`).join('')}</div></div>
+    <div class="row-fields"><div class="field"><label class="field-label" for="target-date">日期</label><input class="text-field" type="date" id="target-date" data-field="targetDate" value="${esc(p.targetDate)}"></div><div class="field"><label class="field-label" for="target-time">時間（24 小時制）</label><input class="text-field" type="time" id="target-time" data-field="targetTime" value="${esc(p.targetTime)}" step="60"></div></div>
+    ${p.mode==='board'?`<p class="field-help">請輸入實際已知的搭乘班次時間。想自動選擇新莊站班次，請切換到「捷運自動選班」。</p>`:''}
+    ${p.mode==='metro'?`<div class="metro-callout"><strong>🚇 新莊站 → 南勢角方向</strong><p>上方請填「希望抵達目的站」的時間；程式會扣掉你設定的車程，自動找到最晚能搭的實際班次。此為固定時刻表，非即時列車資訊。</p></div>`:''}
+    <div class="section-divider"></div>
+    <div class="step-label">STEP 02 <span>選擇常用情境</span></div>
+    <div class="profile-head"><p class="field-help" style="margin:0">選完情境後，仍可調整下方每個活動。</p><button class="btn ghost small" type="button" data-action="save-preset">${icon('plus',15)}儲存組合</button></div>
+    <div class="profile-strip">${state.presets.map(x=>`<button type="button" class="chip ${preset?.id===x.id?'active':''}" data-action="load-preset" data-id="${esc(x.id)}">${esc(x.name)}</button>`).join('')}${!state.presets.length?'<span class="muted" style="font-size:12px">尚無常用情境</span>':''}</div>
+    <div class="section-divider"></div>
+    <div class="step-label">STEP 03 <span>今天要做哪些準備？</span></div>
+    <div class="profile-head"><span class="field-help" style="margin:0">勾選後挑選花費時間</span><button class="btn ghost small" type="button" data-action="nav" data-page="habits">管理活動 ${icon('arrow',15)}</button></div>
+    ${activityRows||'<p class="hint">還沒有活動，請先到「活動」新增。</p>'}
+    <div class="section-divider"></div>
+    <div class="step-label">STEP 04 <span>交通與緩衝</span></div>
+    ${p.mode==='metro'?`<div class="metro-setup">
+       <div class="field"><label class="field-label">常用目的站</label><select class="select-field" data-field="metroStopId"><option value="" ${pick('',p.metroStopId)}>自行輸入目的站車程</option>${state.metroStops.map(x=>`<option value="${esc(x.id)}" ${pick(x.id,p.metroStopId)}>${esc(x.name)} · 約 ${x.minutes} 分</option>`).join('')}</select></div>
+       <div class="row-fields"><div class="field"><label class="field-label">新莊 → 目的站車程（分）</label><input class="text-field" type="number" min="0" max="600" inputmode="numeric" value="${metroRideTime(state)}" data-field="metroRideMinutes" ${p.metroStopId?'disabled':''}></div><div class="field"><label class="field-label">家 → 新莊站步行（分）</label><input class="text-field" type="number" min="0" max="240" inputmode="numeric" value="${p.metroWalkMinutes}" data-field="metroWalkMinutes"></div></div>
+       <div class="row-fields"><div class="field"><label class="field-label">進站＋提前候車（分）</label><input class="text-field" type="number" min="0" max="120" inputmode="numeric" value="${p.metroPlatformLead}" data-field="metroPlatformLead"><p class="field-help">可設 0；建議預留時間以免趕不上列車。</p></div><div class="field"><label class="field-label">使用哪種班表</label><select class="select-field" data-field="metroService"><option value="auto" ${pick('auto',p.metroService)}>依星期自動判斷</option><option value="weekday" ${pick('weekday',p.metroService)}>平日班表</option><option value="holiday" ${pick('holiday',p.metroService)}>週六／週日及國定假日</option></select></div></div>
+       <div class="profile-head"><p class="field-help" style="margin:0">國定假日不一定是週末，請自行切換假日班表。目的站時間可儲存下次用。</p><button class="btn ghost small" type="button" data-action="save-metro-stop">${icon('plus',15)}儲存目的站</button></div>
+       <p class="metro-source">資料：<a href="${METRO_SOURCE}" target="_blank" rel="noopener noreferrer">臺北捷運官方新莊站時刻表 ↗</a>｜只適用往南勢角方向，臨時調度或轉乘請再確認。</p>
+      </div>`:''}
+    ${p.mode!=='depart' && p.mode!=='metro'?`<div class="field"><label class="field-label" for="route-select">交通路線</label><select id="route-select" class="select-field" data-field="selectedRouteId"><option value="" ${pick('',p.selectedRouteId)}>手動輸入交通分鐘</option>${state.routes.map(x=>`<option value="${esc(x.id)}" ${pick(x.id,p.selectedRouteId)}>${esc(x.name)} · ${x.minutes} 分鐘</option>`).join('')}</select></div><div class="row-fields"><div class="field"><label class="field-label" for="travel">交通分鐘</label><input class="text-field" type="number" id="travel" inputmode="numeric" min="0" max="600" data-field="travelMinutes" value="${route?route.minutes:p.travelMinutes}" ${route?'disabled':''}></div>${p.mode==='board'?`<div class="field"><label class="field-label" for="lead">提前到月台（分）</label><input class="text-field" type="number" id="lead" inputmode="numeric" min="0" max="120" data-field="leadMinutes" value="${p.leadMinutes}"></div>`:`<div class="field"><label class="field-label">常用路線</label><button class="btn ghost small" type="button" data-action="nav" data-page="routes">編輯路線 ${icon('arrow',14)}</button></div>`}</div>`:''}
+    <div class="field"><label class="field-label" for="buffer">額外緩衝時間（分鐘）</label><input class="text-field small-input" id="buffer" type="number" inputmode="numeric" min="0" max="180" data-field="bufferMinutes" value="${p.bufferMinutes}"><p class="field-help">預留找東西、等電梯等意外延遲。</p></div>
+    <div class="calculate-area"><p>完成以上設定後，才會顯示起床時間。</p><button class="btn full calculate-button" type="button" data-action="calculate">${icon('sun',20)} 計算我的起床時間 ${icon('arrow',18)}</button></div>
+  `);
+  if(!resultVisible) {
+    return `${title('安排明天的早晨','先選時間與活動，最後再看需要幾點起床。','YOUR MORNING PLAN')}<div class="plan-flow">${form}</div>`;
+  }
+  const timeHint=valid && r.wake.getTime()<=now ? warning('計算出的起床時間已經過去，請檢查目標時間或調整準備項目。',true) : valid && r.wake.getTime()-now>=24*3600*1000 ? warning('可以先規劃，但 iPhone 一般鬧鐘不會鎖定特定日期。請在起床前 24 小時內再透過捷徑建立鬧鐘。') : '';
+  const summary=valid?`
+    <section class="result-card" id="plan-result" tabindex="-1" aria-label="起床時間計算結果">
+      <div class="result-eyebrow">${icon('check',16)} 已完成倒推計算</div>
+      <div class="result-main"><div><div class="result-label">建議起床時間</div><div class="result-time">${formatClock(r.wake)}</div><div class="result-date">${fullStamp(r.wake)}${dateKey(r.wake)!==dateKey(r.target)?' · 跨日':''}</div></div><div class="result-mark">${icon('sun',29)}</div></div>
+      ${r.mode==='metro'?`<div class="metro-result"><div><span>🚇 自動選到的捷運班次</span><strong>${formatClock(r.trainDate)}</strong><small>${shortDate(r.trainDate)} · 新莊站往南勢角</small></div><div><span>預計到目的站</span><strong>${formatClock(r.arrival)}</strong><small>比目標提早 ${r.slackMinutes} 分</small></div></div><p class="metro-reason">你最晚需要搭 ${formatClock(r.cutoff)} 以前的車，實際最近班次是 ${formatClock(r.trainDate)}。從家出發請預留步行 ${r.walkMinutes} 分＋進站候車 ${r.platformLead} 分。</p>`:''}
+       <div class="result-grid"><div><span>最晚出門</span><strong>${formatClock(r.leave)}</strong><small>${shortDate(r.leave)}</small></div><div><span>${r.mode==='metro'?'目標抵達':r.mode==='board'?'搭乘班次':r.mode==='arrive'?'目標抵達':'目標出門'}</span><strong>${formatClock(r.target)}</strong><small>${shortDate(r.target)}</small></div><div><span>總計倒推</span><strong>${r.totalMinutes} 分</strong><small>${Math.floor(r.totalMinutes/60)} 小時 ${r.totalMinutes%60} 分</small></div></div>
+      <div class="action-bar"><button type="button" class="btn" data-action="launch-shortcut">${icon('alarm',17)} iPhone 鬧鐘</button><button type="button" class="btn outline" data-action="copy-plan">${icon('copy',17)} 複製計畫</button></div>
+      <p class="field-help">鬧鐘透過 Apple 捷徑建立；開啟捷徑不代表成功，請到 iPhone「時鐘」確認。</p>
+    </section>`: `<div id="plan-result">${warning(r.error,true)}</div>`;
+  const details=valid?`<details class="result-details"><summary>${icon('list',18)} 查看完整準備時間軸 <span>展開</span></summary><div class="result-details-body"><div class="timeline">${r.timeline.map(x=>`<div class="timeline-item ${x.kind}"><div class="timeline-clock" title="${esc(fullStamp(x.start))}">${formatClock(x.start)}</div><div class="timeline-track"><div class="timeline-bubble"></div><div class="timeline-line"></div></div><div><div class="timeline-name">${esc(x.name)}</div><div class="timeline-desc">${x.end ? `${formatClock(x.start)}–${formatClock(x.end)} · ${x.minutes} 分鐘${x.description?' · '+esc(x.description):''}`:esc(shortDate(x.start))}</div></div></div>`).join('')}</div><div class="subhead"><h3>時間明細</h3><span>系統自動加總</span></div><div class="stats-row"><span>早晨活動</span><strong>${r.prepMinutes} 分</strong></div><div class="stats-row"><span>緩衝時間</span><strong>${r.bufferMinutes} 分</strong></div>${r.mode!=='depart'?`<div class="stats-row"><span>${r.mode==='metro'?'搭車＋步行':'交通時間'}</span><strong>${r.travelMinutes} 分</strong></div>`:''}${r.mode==='metro'?`<div class="stats-row"><span>候車／進站</span><strong>${r.platformLead} 分</strong></div><div class="stats-row"><span>預計提早抵達</span><strong>${r.slackMinutes} 分</strong></div>`:''}${r.mode==='board'?`<div class="stats-row"><span>提前到月台</span><strong>${r.leadMinutes} 分</strong></div>`:''}<div class="stats-row total"><span>總計</span><strong>${r.totalMinutes} 分鐘</strong></div></div></details>`:'';
+  return `${title('安排明天的早晨','先選時間與活動，最後再看需要幾點起床。','YOUR MORNING PLAN')}<div class="plan-flow">${form}<div class="result-stack">${summary}${timeHint}${details}</div></div>`;
+}
+function renderHabits(){
+  const content=state.activities.map((a,i)=>`<div class="list-card"><div class="list-card-head"><strong>${i+1}. ${esc(a.name)}</strong><div class="tool-actions"><button title="上移" class="icon-btn" type="button" data-action="move-activity" data-id="${esc(a.id)}" data-direction="-1" ${i===0?'disabled':''}>${icon('chevronup')}</button><button title="下移" class="icon-btn" type="button" data-action="move-activity" data-id="${esc(a.id)}" data-direction="1" ${i===state.activities.length-1?'disabled':''}>${icon('chevrondown')}</button><button title="刪除活動" class="icon-btn" type="button" data-action="delete-activity" data-id="${esc(a.id)}">${icon('trash')}</button></div></div><div class="field" style="margin:13px 0 0"><label class="field-label">活動名稱</label><input class="text-field" type="text" maxlength="80" data-field="activityName" data-id="${esc(a.id)}" value="${esc(a.name)}"></div><div class="choice-list">${a.options.map(o=>`<div class="choice-row"><input class="text-field" type="text" maxlength="80" aria-label="模式名稱" data-field="optionName" data-id="${esc(a.id)}" data-option="${esc(o.id)}" value="${esc(o.name)}"><input class="text-field" type="number" inputmode="numeric" min="0" max="240" aria-label="分鐘" data-field="optionMinutes" data-id="${esc(a.id)}" data-option="${esc(o.id)}" value="${o.minutes}"><button title="刪除模式" class="icon-btn" type="button" data-action="delete-option" data-id="${esc(a.id)}" data-option="${esc(o.id)}" ${a.options.length===1?'disabled':''}>${icon('trash',15)}</button></div>`).join('')}</div><div class="button-row" style="margin-top:13px"><button type="button" class="btn ghost small" data-action="add-option" data-id="${esc(a.id)}">${icon('plus',15)}新增模式</button></div></div>`).join('');
+  return `${title('我的早晨活動','調整一次，以後每天都直接套用。活動由上到下依序執行。','MY ROUTINES')}<div class="button-row" style="margin-bottom:18px"><button type="button" class="btn" data-action="add-activity">${icon('plus')}新增活動</button></div><div class="list-stack">${content||`<div class="empty">${icon('list',35)}<p>尚未設定任何活動</p></div>`}</div>`;
+}
+function renderPresets(){
+  const list=state.presets.map(p=>`<div class="list-card"><div class="list-card-head"><strong>${esc(p.name)}</strong><button class="icon-btn" title="刪除情境" type="button" data-action="delete-preset" data-id="${esc(p.id)}">${icon('trash')}</button></div><p>${p.mode==='depart'?'出門時間':p.mode==='arrive'?'抵達時間':p.mode==='metro'?'捷運自動選班':'搭乘班次'} · ${p.bufferMinutes} 分緩衝 · ${Object.values(p.selections).filter(s=>s.enabled).length} 項啟用活動</p><div class="button-row"><button class="btn small light" type="button" data-action="load-preset" data-id="${esc(p.id)}">${icon('check',15)}套用情境</button><button class="btn small ghost" type="button" data-action="overwrite-preset" data-id="${esc(p.id)}">以目前組合覆蓋</button></div></div>`).join('');
+  return `${title('我的常用情境','上課、趕時間、重要場合，一鍵切換準備組合。','SAVED PRESETS')}<div class="button-row" style="margin-bottom:18px"><button class="btn" type="button" data-action="save-preset">${icon('plus')}儲存目前組合</button></div><div class="list-stack">${list||`<div class="empty">${icon('layers',35)}<p>尚無情境，先儲存目前的準備清單吧。</p></div>`}</div>`;
+}
+function renderRoutes(){
+  const list=state.routes.map(r=>`<div class="list-card"><div class="list-card-head"><strong>${esc(r.name)}</strong><button title="刪除路線" class="icon-btn" type="button" data-action="delete-route" data-id="${esc(r.id)}">${icon('trash')}</button></div><div class="row-fields" style="margin-top:14px"><div class="field"><label class="field-label">起點</label><input class="text-field" type="text" maxlength="80" data-field="routeFrom" data-id="${esc(r.id)}" value="${esc(r.from)}"></div><div class="field"><label class="field-label">終點</label><input class="text-field" type="text" maxlength="80" data-field="routeTo" data-id="${esc(r.id)}" value="${esc(r.to)}"></div></div><div class="row-fields"><div class="field"><label class="field-label">路線名稱</label><input class="text-field" maxlength="80" data-field="routeName" data-id="${esc(r.id)}" value="${esc(r.name)}"></div><div class="field"><label class="field-label">預估交通時間（分鐘）</label><input class="text-field" type="number" inputmode="numeric" min="0" max="600" data-field="routeMinutes" data-id="${esc(r.id)}" value="${r.minutes}"></div></div></div>`).join('');
+  const metroList=state.metroStops.map(m=>`<div class="list-card"><div class="list-card-head"><strong>${esc(m.name)}</strong><button class="icon-btn" title="刪除目的站" type="button" data-action="delete-metro-stop" data-id="${esc(m.id)}">${icon('trash')}</button></div><div class="row-fields" style="margin-top:12px"><div class="field"><label class="field-label">目的站名稱</label><input class="text-field" data-field="metroStopName" data-id="${esc(m.id)}" value="${esc(m.name)}" maxlength="80"></div><div class="field"><label class="field-label">新莊站出發車程（分鐘）</label><input class="text-field" data-field="metroStopMinutes" data-id="${esc(m.id)}" value="${m.minutes}" min="0" max="600" type="number" inputmode="numeric"></div></div></div>`).join('');
+   const metroPanel=panel('新莊站常用目的站','map',`<p class="hint">例如台北橋、松江南京、忠孝新生等站。只需自行輸入從新莊站的車程，App 就會依官方班表選車。</p><div class="button-row" style="margin:13px 0"><button class="btn" type="button" data-action="add-metro-stop">${icon('plus')}新增目的站</button></div><div class="list-stack">${metroList||'<p class="hint">尚未儲存目的站；也可以在「計算」頁直接儲存。</p>'}</div>`);
+   return `${title('常用路線','一般交通與新莊站捷運目的站都可以儲存。','MY ROUTES')}${metroPanel}<div style="height:18px"></div><h2 style="margin:15px 0">一般交通路線</h2><div class="alert">${icon('info',17)}<span>請將「從門口到實際抵達目的地／月台」的時間算進去。如果車站步行和月台候車要另外算，可以選擇「搭乘班次」模式並設定提前到站分鐘。</span></div><div class="button-row" style="margin-bottom:18px"><button class="btn" data-action="add-route" type="button">${icon('plus')}新增常用路線</button></div><div class="list-stack">${list||`<div class="empty">${icon('map',35)}<p>還沒有路線。新增例如「家 → 捷運站」，以後就能一鍵套用。</p></div>`}</div>`;
+}
+function renderSettings(){
+  const setup=panel('iPhone 捷徑鬧鐘','alarm',`<div class="field"><label class="field-label">捷徑名稱（必須與 iPhone 內相同）</label><input class="text-field" type="text" maxlength="80" data-field="shortcutName" value="${esc(state.settings.shortcutName)}"></div><ol class="steps"><li><div>在 iPhone 打開 <strong>「捷徑」App →「＋」</strong> 建立新的捷徑，名稱設為 <span class="code-pill">${esc(state.settings.shortcutName)}</span>。</div></li><li><div>新增動作 <strong>「從輸入取得日期」（Get Dates from Input）</strong>，輸入指定為 <strong>「捷徑輸入」（Shortcut Input）</strong>。本 App 會傳送 <span class="code-pill">YYYY-MM-DD HH:mm</span>。</div></li><li><div>新增動作 <strong>「取得列表項目」（Get Item from List）</strong>，取第一個日期，以免日期清單有多個值。</div></li><li><div>新增 <strong>「製作鬧鐘」（Create Alarm）</strong> 動作，時間欄位放入上一步取得的日期，標籤可填「WakeUp Planner」。</div></li><li><div>先在「捷徑」App 內測試：確認「時鐘」新增正確時間，再回本 App 按 <strong>「iPhone 鬧鐘」</strong>。</div></li></ol><div class="secondary-note">注意：一般 iPhone「時鐘」鬧鐘依<strong>時刻</strong>響鈴，並不鎖定所傳送的特定年月日。本 App 限制在預計起床前 24 小時內呼叫捷徑。請確認鬧鐘已建立、已啟用、沒有重複舊鬧鐘。不同 iOS 版本的捷徑動作名稱及欄位可能略有不同。</div><div class="button-row" style="margin-top:16px"><button class="btn outline small" data-action="copy-alarm-input" type="button">${icon('copy',15)}複製測試用時間</button><a class="btn light small" href="https://support.apple.com/guide/shortcuts/run-a-shortcut-using-a-url-scheme-apd624386f42/ios" target="_blank" rel="noopener">Apple 捷徑說明 ${icon('arrow',15)}</a></div>`, '僅在你點擊按鈕時嘗試啟動捷徑，不會在背景偷偷設定鬧鐘。');
+  const backup=panel('資料備份與復原','save',`<p class="hint">活動、路線、情境與目前計畫保存在此裝置的本機瀏覽器儲存空間。建議定期匯出 JSON 備份，存到 iCloud Drive。</p><div class="button-row" style="margin:18px 0"><button class="btn" data-action="export" type="button">${icon('download')}匯出 JSON 備份</button><button class="btn outline" data-action="import" type="button">${icon('upload')}匯入備份</button></div><div class="secondary-note">匯入會<strong>取代</strong>現在的設定；更換裝置、刪除網頁 App 或清除 Safari 網站資料，都可能造成本機資料遺失。</div><div class="section-divider"></div><div class="stats-row"><span>目前儲存方式</span><strong>${storageMode()==='localstorage'?'localStorage（本機）':'無法儲存'}</strong></div><div class="stats-row"><span>活動／情境／路線</span><strong>${state.activities.length}／${state.presets.length}／${state.routes.length}</strong></div><div class="stats-row"><span>最近修改</span><strong>${esc(state.updatedAt?.slice(0,10)||'—')}</strong></div><div class="button-row" style="margin-top:16px"><button type="button" class="btn danger small" data-action="reset">${icon('trash',16)}重設所有資料</button></div>`);
+  const install=panel('將 App 加到 iPhone 主畫面','smartphone',`<ol class="steps"><li><div>把此網站部署成 <strong>HTTPS 網址</strong>，在 iPhone <strong>Safari</strong> 打開該連結。</div></li><li><div>點選 Safari <strong>分享</strong>，選擇 <strong>「加入主畫面」</strong>。</div></li><li><div>開啟 <strong>「打開為網頁 App」</strong>，再按「加入」。</div></li><li><div>主畫面點選 WakeUp 圖示即可使用。這個單檔版本身不依賴外部網路，但 HTTPS 網址版的離線可用性取決於 Safari 的快取狀態。</div></li></ol><div class="alert">${icon('info',17)}<span>若直接從 iPhone「檔案」打開 HTML 可能只顯示預覽、不執行程式，也不保證能儲存。要用 Safari「加入主畫面」，請以 HTTPS 網址開啟。</span></div>`);
+  return `${title('偏好與備份','重要的日常設定，都由你自己掌握。','SETTINGS')}<div class="settings-grid"><div>${setup}${panel('關於鬧鐘可靠性','info',`<p class="hint">PWA 無法直接操作 iOS 系統鬧鐘，也不以網頁推播代替叫醒。捷徑執行是否成功，仍須由你在「時鐘」App 核對；要避免舊鬧鐘重複響鈴，建議先在時鐘 App 清理舊鬧鐘。</p>`)}</div><div>${backup}${install}</div></div>`;
+}
+function snapshotPreset(id,name){const p=state.plan;return {id,name,selections:structuredClone(p.selections),bufferMinutes:p.bufferMinutes,mode:p.mode,leadMinutes:p.leadMinutes,routeId:p.selectedRouteId,travelMinutes:p.travelMinutes,metroStopId:p.metroStopId,metroRideMinutes:p.metroRideMinutes,metroWalkMinutes:p.metroWalkMinutes,metroPlatformLead:p.metroPlatformLead,metroService:p.metroService};}
+async function actionClick(e){
+  const b=e.target.closest('[data-action]');if(!b)return;
+  const action=b.dataset.action;const id=b.dataset.id;
+  if(action==='calculate'){resultVisible=true;refresh();const el=document.getElementById('plan-result');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return;}
+  if(action==='nav'){page=b.dataset.page;refresh();window.scrollTo({top:0,behavior:'instant'});return;}
+  if(action==='mode'){state.plan.mode=b.dataset.value;state.plan.presetId='';await commit();return;}
+  if(action==='load-preset'){const p=state.presets.find(x=>x.id===id);if(!p)return;Object.assign(state.plan,{selections:structuredClone(p.selections),bufferMinutes:p.bufferMinutes,mode:p.mode,leadMinutes:p.leadMinutes,selectedRouteId:state.routes.some(r=>r.id===p.routeId)?p.routeId:'',travelMinutes:p.travelMinutes,metroStopId:p.metroStopId??'',metroRideMinutes:p.metroRideMinutes??20,metroWalkMinutes:p.metroWalkMinutes??7,metroPlatformLead:p.metroPlatformLead??3,metroService:p.metroService??'auto',presetId:p.id});page='plan';await commit();window.scrollTo({top:0,behavior:'instant'});toast(`已套用「${p.name}」`);return;}
+  if(action==='save-preset'){const name=window.prompt('請幫這個準備組合取一個名字：','我的常用準備');if(name===null)return;if(!name.trim())return toast('請輸入情境名稱。');if(state.presets.length>=100)return toast('最多儲存 100 個情境。');const p=snapshotPreset(uid('preset'),name.trim().slice(0,80));state.presets.push(p);state.plan.presetId=p.id;await commit();toast('已儲存常用情境');return;}
+  if(action==='overwrite-preset'){const p=state.presets.find(x=>x.id===id);if(!p)return;if(!confirm(`將目前準備組合覆蓋「${p.name}」？`))return;Object.assign(p,snapshotPreset(p.id,p.name));state.plan.presetId=p.id;await commit();toast('已更新情境');return;}
+  if(action==='delete-preset'){const p=state.presets.find(x=>x.id===id);if(!p||!confirm(`刪除「${p.name}」情境？`))return;state.presets=state.presets.filter(x=>x.id!==id);if(state.plan.presetId===id)state.plan.presetId='';await commit();return;}
+  if(action==='add-activity'){const name=prompt('新活動名稱（例如：洗澡、戴隱形眼鏡）：','新活動');if(name===null)return;if(!name.trim())return toast('請輸入活動名稱。');if(state.activities.length>=100)return toast('最多新增 100 個活動。');const minutes=prompt('預設花費幾分鐘？（0–240）','10');if(minutes===null)return;const n=Number(minutes);if(!Number.isFinite(n)||n<0||n>240)return toast('請輸入 0–240 分鐘。');const aid=uid('activity'),oid=uid('option');state.activities.push({id:aid,name:name.trim().slice(0,80),options:[{id:oid,name:'一般',minutes:num(n,0,240)}]});state.plan.selections[aid]={enabled:true,optionId:oid};state.plan.presetId='';await commit();toast('已新增活動');return;}
+  if(action==='add-option'){const a=state.activities.find(x=>x.id===id);if(!a)return;if(a.options.length>=30)return toast('每項活動最多 30 個模式。');const name=prompt('新模式名稱：','快速');if(name===null)return;if(!name.trim())return toast('請輸入模式名稱。');const minutes=prompt('此模式幾分鐘？（0–240）','10');if(minutes===null)return;const n=Number(minutes);if(!Number.isFinite(n)||n<0||n>240)return toast('請輸入 0–240 分鐘。');a.options.push({id:uid('option'),name:name.trim().slice(0,80),minutes:num(n,0,240)});await commit();return;}
+  if(action==='delete-option'){const a=state.activities.find(x=>x.id===id);if(!a||a.options.length===1)return;if(!confirm('刪除此活動模式？已儲存的情境若使用此模式，將改成該活動的第一個模式。'))return;a.options=a.options.filter(o=>o.id!==b.dataset.option);for(const s of [state.plan.selections,...state.presets.map(x=>x.selections)]){if(s[id]?.optionId===b.dataset.option)s[id].optionId=a.options[0].id;}state.plan.presetId='';await commit();return;}
+  if(action==='delete-activity'){const a=state.activities.find(x=>x.id===id);if(!a||!confirm(`刪除「${a.name}」？相關情境也會移除此活動。`))return;state.activities=state.activities.filter(x=>x.id!==id);delete state.plan.selections[id];for(const p of state.presets)delete p.selections[id];state.plan.presetId='';await commit();return;}
+  if(action==='move-activity'){const index=state.activities.findIndex(x=>x.id===id);const next=index+Number(b.dataset.direction);if(index<0||next<0||next>=state.activities.length)return;[state.activities[index],state.activities[next]]=[state.activities[next],state.activities[index]];await commit();return;}
+  if(action==='save-metro-stop' || action==='add-metro-stop'){
+     if(state.metroStops.length>=100)return toast('最多儲存 100 個常用目的站。');
+     const name=prompt('目的捷運站名稱：','常用目的站');if(name===null)return;
+     if(!name.trim())return toast('請輸入站名。');
+     const current=metroRideTime(state);
+     const mins=prompt('從新莊站搭車到目的站需要幾分鐘？',String(current));if(mins===null)return;
+     const n=Number(mins);if(!Number.isFinite(n)||n<0||n>600)return toast('請輸入 0–600 分鐘。');
+     const stop={id:uid('metro'),name:name.trim().slice(0,80),minutes:num(n,0,600)};
+     state.metroStops.push(stop);state.plan.metroStopId=stop.id;state.plan.metroRideMinutes=stop.minutes;
+     await commit();toast('已儲存目的捷運站');return;
+   }
+   if(action==='delete-metro-stop'){
+     const stop=state.metroStops.find(x=>x.id===id);if(!stop||!confirm(`刪除「${stop.name}」？`))return;
+     state.metroStops=state.metroStops.filter(x=>x.id!==id);
+     if(state.plan.metroStopId===id)state.plan.metroStopId='';
+     for(const preset of state.presets)if(preset.metroStopId===id)preset.metroStopId='';
+     await commit();return;
+   }
+   if(action==='add-route'){if(state.routes.length>=100)return toast('最多儲存 100 條路線。');const name=prompt('路線名稱（例如：家 → 捷運站）：','家 → 捷運站');if(name===null)return;if(!name.trim())return toast('請輸入路線名稱。');const mins=prompt('交通時間（分鐘）：','12');if(mins===null)return;const n=Number(mins);if(!Number.isFinite(n)||n<0||n>600)return toast('請輸入 0–600 分鐘。');const route={id:uid('route'),name:name.trim().slice(0,80),from:'家',to:'',minutes:num(n,0,600)};state.routes.push(route);await commit();toast('已新增常用路線');return;}
+  if(action==='delete-route'){const r=state.routes.find(x=>x.id===id);if(!r||!confirm(`刪除「${r.name}」路線？`))return;state.routes=state.routes.filter(x=>x.id!==id);if(state.plan.selectedRouteId===id)state.plan.selectedRouteId='';for(const p of state.presets)if(p.routeId===id)p.routeId='';await commit();return;}
+  if(action==='copy-plan'){const r=calculate(state);if(r.error)return toast(r.error);const p=state.plan;const lines=[`WakeUp Planner｜${fullStamp(r.target)}`,`目標：${r.mode==='depart'?'出門':r.mode==='arrive'||r.mode==='metro'?'抵達':'搭乘班次'} ${fullStamp(r.target)}`,`起床：${fullStamp(r.wake)}`,`出門：${fullStamp(r.leave)}`,`早晨活動 ${r.prepMinutes} 分｜緩衝 ${r.bufferMinutes} 分｜交通 ${r.travelMinutes} 分｜提前抵達 ${r.leadMinutes} 分`,`總計 ${r.totalMinutes} 分`,...(r.mode==='metro'?[`新莊站往南勢角方向班次 ${fullStamp(r.trainDate)}`,`預計到目的站 ${fullStamp(r.arrival)}（提前 ${r.slackMinutes} 分）`,`車程 ${r.rideMinutes} 分｜步行 ${r.walkMinutes} 分｜月台緩衝 ${r.platformLead} 分`]:[]),``,...r.timeline.map(x=>`${timeKey(x.start)} ${x.name}${x.end?'（'+x.minutes+' 分）':''}`)];await copyText(lines.join('\n'));return;}
+  if(action==='copy-alarm-input'){const r=calculate(state);if(r.error)return toast(r.error);await copyText(`${dateKey(r.wake)} ${timeKey(r.wake)}`);return;}
+  if(action==='launch-shortcut'){
+    const r=calculate(state);if(r.error)return toast(r.error);
+    if(!canShortcut(r)){toast('請在預計起床前 24 小時內操作；若時間已過，請先修改日期。');return;}
+    const name=state.settings.shortcutName.trim();if(!name)return toast('請先在設定頁填寫捷徑名稱。');
+    const input=`${dateKey(r.wake)} ${timeKey(r.wake)}`;
+    const url=`shortcuts://run-shortcut?name=${encodeURIComponent(name)}&input=text&text=${encodeURIComponent(input)}`;
+    toast(`正在嘗試開啟捷徑：${timeKey(r.wake)}。完成後務必到「時鐘」確認！`);
+    window.location.href=url;
+    return;
+  }
+  if(action==='export'){const payload={app:'WakeUp Planner',exportedAt:new Date().toISOString(),schemaVersion:1,data:state};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=`WakeUpPlanner_backup_${dateKey(new Date())}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);toast('已產生備份檔，請保存到 iCloud Drive。');return;}
+  if(action==='import'){document.getElementById('import-file').click();return;}
+  if(action==='reset'){if(!confirm('確定清除所有活動、情境、路線及時間設定，恢復範例資料？此動作無法復原。'))return;state=defaultState();page='plan';await commit();toast('已恢復初始範例設定');return;}
+}
+async function copyText(text) {try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);toast('已複製到剪貼簿');return;}}catch(_){}const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();const ok=document.execCommand('copy');ta.remove();toast(ok?'已複製到剪貼簿':'複製失敗，請嘗試從 Safari 操作');}
+async function fieldChange(event){
+  const el=event.target; const field=el.dataset.field;if(!field)return;
+  const p=state.plan;const id=el.dataset.id;const optionId=el.dataset.option;
+  if(field==='targetDate'){p.targetDate=el.value;}
+  else if(field==='targetTime'){p.targetTime=el.value;}
+  else if(field==='metroStopId'){p.metroStopId=el.value;p.presetId='';}
+   else if(field==='metroRideMinutes'){p.metroRideMinutes=num(el.value,0,600,20);p.presetId='';}
+   else if(field==='metroWalkMinutes'){p.metroWalkMinutes=num(el.value,0,240,7);p.presetId='';}
+   else if(field==='metroPlatformLead'){p.metroPlatformLead=num(el.value,0,120,3);p.presetId='';}
+   else if(field==='metroService'){p.metroService=['auto','weekday','holiday'].includes(el.value)?el.value:'auto';p.presetId='';}
+   else if(field==='selectedRouteId'){p.selectedRouteId=el.value;p.presetId='';}
+  else if(field==='travelMinutes'){p.travelMinutes=num(el.value,0,600,0);p.presetId='';}
+  else if(field==='leadMinutes'){p.leadMinutes=num(el.value,0,120,0);p.presetId='';}
+  else if(field==='bufferMinutes'){p.bufferMinutes=num(el.value,0,180,0);p.presetId='';}
+  else if(field==='enabled'){const a=state.activities.find(x=>x.id===id);if(!a)return;if(!p.selections[id])p.selections[id]={enabled:false,optionId:a.options[0].id};p.selections[id].enabled=el.checked;p.presetId='';}
+  else if(field==='option'){const a=state.activities.find(x=>x.id===id);if(!a||!a.options.some(o=>o.id===el.value))return;if(!p.selections[id])p.selections[id]={enabled:true,optionId:el.value};p.selections[id].optionId=el.value;p.presetId='';}
+  else if(field==='shortcutName'){state.settings.shortcutName=el.value.trim().slice(0,80)||'WakeUp 設定鬧鐘';}
+  else if(['activityName','optionName','optionMinutes'].includes(field)) {const a=state.activities.find(x=>x.id===id);if(!a)return;const o=a.options.find(x=>x.id===optionId);if(field==='activityName')a.name=el.value.trim().slice(0,80)||a.name;else if(o&&field==='optionName')o.name=el.value.trim().slice(0,80)||o.name;else if(o&&field==='optionMinutes')o.minutes=num(el.value,0,240,0);}
+  else if(['metroStopName','metroStopMinutes'].includes(field)){const m=state.metroStops.find(x=>x.id===id);if(!m)return;if(field==='metroStopName')m.name=el.value.trim().slice(0,80)||m.name;else m.minutes=num(el.value,0,600,20);}
+   else if(['routeFrom','routeTo','routeName','routeMinutes'].includes(field)){const r=state.routes.find(x=>x.id===id);if(!r)return;if(field==='routeFrom')r.from=el.value.trim().slice(0,80);if(field==='routeTo')r.to=el.value.trim().slice(0,80);if(field==='routeName')r.name=el.value.trim().slice(0,80)||r.name;if(field==='routeMinutes')r.minutes=num(el.value,0,600,0);}
+  else return;
+  await commit();
+}
+async function fileImport(e){const file=e.target.files?.[0];e.target.value='';if(!file)return;if(file.size>1_000_000)return toast('備份檔過大（超過 1 MB），已取消。');let imported;try{const raw=JSON.parse(await file.text());imported=sanitizeState(raw?.data ?? raw); } catch(err){toast('備份讀取失敗：'+(err.message||'格式錯誤'));return;}if(!confirm('確定匯入備份？目前所有設定將被取代，建議先匯出現在的資料。'))return;state=imported;page='plan';await commit();toast('已成功還原備份資料');}
+async function start(){const result=await initializeStorage();try{state=result.data?sanitizeState(result.data):defaultState();}catch(err){state=defaultState();toast('儲存資料格式錯誤，請先備份並檢查。');}updateStaleDate(state);refresh();await persist();if (location.protocol === 'https:' && 'serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => { if(reg.scope.startsWith(location.origin)) reg.unregister(); })).catch(()=>{}); }}
+app.addEventListener('click',event=>{actionClick(event).catch(err=>toast('操作失敗：'+err.message));});
+app.addEventListener('change',event=>{fieldChange(event).catch(err=>toast('修改失敗：'+err.message));});
+document.getElementById('import-file').addEventListener('change',e=>fileImport(e).catch(err=>toast(err.message)));
+start().catch(err=>{app.innerHTML=`<div class="boot"><div class="boot-icon">!</div><div>無法啟動</div><small>請重新整理或改用 Safari：${esc(err.message)}</small></div>`;});
+
+</script>
+</body>
+</html>
